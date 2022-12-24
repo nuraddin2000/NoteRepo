@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class NotesFragment: Fragment(R.layout.fragment_notes) {
     private var fragmentBinding : FragmentNotesBinding? = null
     private lateinit var viewModel : NotesViewModel
-    private lateinit var artRecyclerAdapter: NotesAdapter
+    private lateinit var noteRecyclerAdapter: NotesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +34,7 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
         viewModel.getNotesResult().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    artRecyclerAdapter.notes = it.data!!
+                    noteRecyclerAdapter.notes = it.data!!
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message ?: "Error", Toast.LENGTH_LONG)
@@ -46,9 +46,9 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
     }
 
     private fun initRecyclerview() {
-        artRecyclerAdapter = NotesAdapter()
+        noteRecyclerAdapter = NotesAdapter()
         val manager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         fragmentBinding?.recyclerview?.layoutManager = manager
-        fragmentBinding?.recyclerview?.adapter = artRecyclerAdapter
+        fragmentBinding?.recyclerview?.adapter = noteRecyclerAdapter
     }
 }
