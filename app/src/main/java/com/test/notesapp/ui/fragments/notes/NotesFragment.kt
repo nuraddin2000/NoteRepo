@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.test.notesapp.R
 import com.test.notesapp.adapter.NotesAdapter
 import com.test.notesapp.databinding.FragmentNotesBinding
+import com.test.notesapp.ui.fragments.detail.DetailFragmentArgs
 import com.test.notesapp.util.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotesFragment: Fragment(R.layout.fragment_notes) {
+class NotesFragment: Fragment(R.layout.fragment_notes),NotesAdapter.NotesAdapterListener  {
     private var fragmentBinding : FragmentNotesBinding? = null
     private lateinit var viewModel : NotesViewModel
     private lateinit var noteRecyclerAdapter: NotesAdapter
@@ -46,9 +47,14 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
     }
 
     private fun initRecyclerview() {
-        noteRecyclerAdapter = NotesAdapter()
+        noteRecyclerAdapter = NotesAdapter(this)
         val manager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         fragmentBinding?.recyclerview?.layoutManager = manager
         fragmentBinding?.recyclerview?.adapter = noteRecyclerAdapter
+    }
+
+    override fun noteClick(noteId: Int) {
+        val action = NotesFragmentDirections.actionNotesFragmentToDetailFragment(noteId)
+        findNavController().navigate(action)
     }
 }

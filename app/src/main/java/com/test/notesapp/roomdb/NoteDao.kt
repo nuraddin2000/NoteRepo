@@ -11,4 +11,7 @@ interface NoteDao {
     @Query("SELECT * FROM notes")
     fun getNotes(): List<Note>
 
+    @Query("SELECT * FROM notes WHERE id=:id ")
+    fun getNoteById(id: Int): Note
+
 }

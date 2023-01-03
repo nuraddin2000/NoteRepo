@@ -11,11 +11,26 @@
         <action
             android:id="@+id/action_notesFragment_to_insertNoteFragment"
             app:destination="@id/insertNoteFragment" />
+
+        <action
+            android:id="@+id/action_notesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/insertNoteFragment"
         android:name="com.test.notesapp.ui.fragments.insertNote.InsertNoteFragment"
         android:label="InsertNoteFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.test.notesapp.ui.fragments.detail.DetailFragment"
+        android:label="detailFragment">
+
+        <argument
+            android:name="noteId"
+            app:argType="integer"/>
 
     </fragment>
 

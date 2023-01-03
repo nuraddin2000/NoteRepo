@@ -9,4 +9,6 @@ interface NoteRepositoryInterface {
 
     fun getNotes() : List<Note>
 
+    fun getNoteById(id: Int) : Note
+
 }

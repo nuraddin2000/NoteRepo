@@ -14,7 +14,7 @@ import com.test.notesapp.databinding.NoteRowBinding
 import com.test.notesapp.roomdb.Note
 import javax.inject.Inject
 
-class NotesAdapter @Inject constructor(
+class NotesAdapter @Inject constructor(val listener: NotesAdapterListener
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
 
@@ -52,11 +52,14 @@ class NotesAdapter @Inject constructor(
         val item = notes[position]
         holder.binding.title.text = item.title
         item.body?.let { holder.binding.subTitle.text = it }
-
+        holder.itemView.setOnClickListener { listener.noteClick(item.id!!) }
     }
 
     override fun getItemCount(): Int {
         return notes.size
     }
 
+    interface NotesAdapterListener {
+        fun noteClick(noteId:Int)
+    }
 }
